@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/ui-article'],
+  projects: ['<rootDir>/apps/ui-article', '<rootDir>/libs/contentful'],
 };

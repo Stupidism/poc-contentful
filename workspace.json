@@ -1,20 +1,11 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
+  "cli": { "defaultCollection": "@nrwl/next" },
   "defaultProject": "ui-article",
   "generators": {
-    "@nrwl/react": {
-      "application": {
-        "babel": true
-      }
-    },
+    "@nrwl/react": { "application": { "babel": true } },
     "@nrwl/next": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
+      "application": { "style": "styled-components", "linter": "eslint" }
     }
   },
   "projects": {
@@ -30,16 +21,11 @@
             "root": "apps/ui-article",
             "outputPath": "dist/apps/ui-article"
           },
-          "configurations": {
-            "production": {}
-          }
+          "configurations": { "production": {} }
         },
         "serve": {
           "executor": "@nrwl/next:server",
-          "options": {
-            "buildTarget": "ui-article:build",
-            "dev": true
-          },
+          "options": { "buildTarget": "ui-article:build", "dev": true },
           "configurations": {
             "production": {
               "buildTarget": "ui-article:build:production",
@@ -49,9 +35,7 @@
         },
         "export": {
           "executor": "@nrwl/next:export",
-          "options": {
-            "buildTarget": "ui-article:build:production"
-          }
+          "options": { "buildTarget": "ui-article:build:production" }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -82,15 +66,34 @@
             "devServerTarget": "ui-article:serve"
           },
           "configurations": {
-            "production": {
-              "devServerTarget": "ui-article:serve:production"
-            }
+            "production": { "devServerTarget": "ui-article:serve:production" }
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/ui-article-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "contentful": {
+      "root": "libs/contentful",
+      "sourceRoot": "libs/contentful/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/contentful/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/contentful"],
+          "options": {
+            "jestConfig": "libs/contentful/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

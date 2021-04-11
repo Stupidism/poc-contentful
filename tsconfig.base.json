@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@poc-contentful/contentful": ["libs/contentful/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
