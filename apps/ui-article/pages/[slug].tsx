@@ -1,14 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useContentful } from 'react-contentful';
 import JsonView from 'react-json-view-ssr';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import {
   contentfulClient,
-  IArticle,
   IArticleFields,
 } from '@poc-contentful/contentful';
 
@@ -39,21 +36,7 @@ export interface HookResponse {
   data?: unknown;
 }
 
-export function ArticleDetailPage() {
-  const { query } = useRouter();
-  const { data, error, fetched, loading } = useContentful({
-    contentType: 'article',
-    query: {
-      'fields.slug[match]': query.slug,
-    },
-  });
-
-  if (loading) return 'Loading...';
-  if (!data) return 'Failed to fetch';
-  if (error) return error;
-
-  const article = (data as any).items[0] as IArticle;
-
+export function ArticleDetailPage({ article }) {
   return (
     <ArticlePageWrapper>
       <p>
@@ -112,7 +95,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   return {
-    props: {},
+    props: {
+      article: res.items[0],
+    },
   };
 };
 

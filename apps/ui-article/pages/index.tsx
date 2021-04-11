@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useContentful } from 'react-contentful';
 import Link from 'next/link';
-import { IArticle } from '@poc-contentful/contentful';
+import { IArticle, IArticleFields } from '@poc-contentful/contentful';
 import { contentfulClient } from '@poc-contentful/contentful';
 
 const HomePage = styled.div`
@@ -14,24 +14,14 @@ const HomePage = styled.div`
   }
 `;
 
-export function Index() {
-  const { data, error, fetched, loading } = useContentful({
-    contentType: 'article',
-  });
-
-  if (loading) return 'Loading...';
-  if (!data) return 'Failed to fetch';
-  if (error) return error;
-
-  const articles = (data as any).items as IArticle[];
-
+export function Index({ articles }) {
   return (
     <HomePage>
       <h1>article list</h1>
       <ul>
         {articles.map(({ fields }) => (
           <li className="article-item" key={fields.slug}>
-            <Link href={fields.slug}>{fields.title}</Link>
+            <Link href={`/${fields.slug}`}>{fields.title}</Link>
             --- {fields.author.fields.name}
           </li>
         ))}
@@ -40,13 +30,15 @@ export function Index() {
   );
 }
 
-export async function getStaticProps(context) {
-  await contentfulClient.getEntries({
+export async function getStaticProps() {
+  const res = await contentfulClient.getEntries<IArticleFields>({
     content_type: 'article',
   });
 
   return {
-    props: {},
+    props: {
+      articles: res.items,
+    },
   };
 }
 
