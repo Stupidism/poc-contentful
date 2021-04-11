@@ -1,2 +1,2 @@
 export { contentfulClient, previewContentfulClient } from './contentfulClient';
-export { IArticle, IArticleFields, IAuthor, IDynamicComponent } from './contentfulTypes.d';
+export type { IArticle, IArticleFields, IAuthor, IDynamicComponent } from './contentfulTypes.d';
